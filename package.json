@@ -1,0 +1,26 @@
+{
+  "name": "theworld",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dongqiuyinggrace/TravelTheWorld.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dongqiuyinggrace/TravelTheWorld/issues"
+  },
+  "homepage": "https://github.com/dongqiuyinggrace/TravelTheWorld#readme",
+  "dependencies": {
+    "bootstrap": "^4.5.2",
+    "bootswatch": "^4.5.2",
+    "font-awesome": "^4.7.0",
+    "jquery-validation": "^1.19.2",
+    "jquery-validation-unobtrusive": "^3.2.11"
+  }
+}

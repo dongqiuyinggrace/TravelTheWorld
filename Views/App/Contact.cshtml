@@ -1,0 +1,45 @@
+﻿@model TheWorld.ViewModels.ContactViewModel
+@{
+    ViewData["Title"] = "Contact";
+}
+
+@section scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+}
+
+<div class="row" >
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <h1>Contact Me</h1>
+        <form method="post">
+            <div asp-validation-summary="ModelOnly"></div>
+            @if (ViewBag.UserMessage != null)
+            {
+                <div>@ViewBag.UserMessage</div>
+            }
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-muted"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-muted"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Message"></label>
+                <textarea asp-for="Message" cols="30" rows="4" class="form-control"></textarea>
+                <span asp-validation-for="Message" class="text-muted"></span>
+            </div>
+            <div class="form-group">
+                <a asp-controller="App" asp-action="Index" class="btn btn-default" >Cancel</a>
+                <input type="submit" value="Send Message" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

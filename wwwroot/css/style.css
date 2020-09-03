@@ -1,13 +1,10 @@
 html,
 body {
-  font-family: sans-serif;
-  font-size: 14px;
   height: 100%;
   margin: 0;
 }
 
 label {
-  font-weight: bold;
   display: block;
 }
 
@@ -16,7 +13,6 @@ input[type='text'] {
 }
 
 main {
-  background-color: #eee;
   padding: 4px;
   margin: 0;
   height: 100%;
@@ -38,18 +34,22 @@ footer {
   background-color: #2a2c36;
   color: #eee;
   overflow: hidden;
+  transition: left ease .25s;
 }
 
 #sidebar.hide-sidebar {
   left: -250px;
+  transition: left ease .25s;
 }
 
 #wrapper.hide-sidebar {
     margin-left: 0;
+    transition: margin-left ease .25s;
 }
 
 #wrapper {
   margin: 0 0 0 250px;
+  transition: margin-left ease .25s;
 }
 
 .headshot {
@@ -58,7 +58,7 @@ footer {
   padding: 2px;
 }
 
-.menu {
+.menu{
   font-size: 0.9em;
   list-style: none;
   text-decoration: none;

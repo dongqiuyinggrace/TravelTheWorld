@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The World - @ViewBag.Title</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootswatch/dist/yeti/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+</head>
+  <body>
+      <div id="sidebar">
+          <img src="/img/user.png" alt="Use Photo" class="headshot" />
+          <span id="username">Grace Dong</span>
+          <ul class="navbar-nav" >
+              <li class="active"><a asp-controller="App" asp-action="Index">Home</a></li>
+              <li><a asp-controller="App" asp-action="About">About</a></li>
+              <li><a asp-controller="App" asp-action="Contact">Contact</a></li>
+          </ul>
+      </div>
+      <div id="wrapper">
+          <nav class="navbar navbar-dark">
+              <div class="container-fluid">
+                  <ul class="nav navbar-nav">
+                      <li>
+                          <button class="btn btn-primary" id="sidebarToggle">
+                              <i class="fa fa-angle-left"></i>
+                          </button>
+                      </li>
+                  </ul>
+              </div>
+          </nav>
+          <main id="main" class="container-fluid">
+              <div>
+                  
+              </div>
+              @RenderBody()
+          </main>
+          <footer class="text-primary container-fluid">&copy; 2020 The World Ltd.</footer></p>
+      </div>
+      <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+      <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="~/js/site.js"></script>
+      @RenderSection("scripts", false);
+  </body>
+</html>
