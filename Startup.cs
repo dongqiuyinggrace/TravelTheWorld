@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -13,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Debug;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
 using TheWorld.Models;
 using TheWorld.Services;
@@ -40,6 +43,19 @@ namespace TheWorld
                 services.AddScoped<IMailService, DebugMailService>();
             }
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options => 
+                    {
+                        options.TokenValidationParameters = new TokenValidationParameters()
+                        {
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
+                                                    .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                            ValidateIssuer = false,
+                            ValidateAudience = false
+                        };
+                    });
+
             services.AddDbContext<WorldContext>(options => options
                                     .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -63,6 +79,8 @@ namespace TheWorld
 
             app.UseStaticFiles();
             app.UseRouting();
+
+            app.UseAuthorization();
 
             seeder.SeedData().Wait();
             app.UseEndpoints(endpoints =>

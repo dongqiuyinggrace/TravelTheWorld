@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 
 namespace TheWorld.Services
@@ -10,8 +11,10 @@ namespace TheWorld.Services
     public class GeoCoordsService
     {
         private readonly IConfiguration _config;
-        public GeoCoordsService(IConfiguration config)
+        private readonly ILogger<GeoCoordsService> _logger;
+        public GeoCoordsService(IConfiguration config, ILogger<GeoCoordsService> logger)
         {
+            _logger = logger;
             _config = config;
         }
 
@@ -68,6 +71,7 @@ namespace TheWorld.Services
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 return result;
             }
 

@@ -17,19 +17,24 @@
               <li class="active"><a asp-controller="App" asp-action="Index">Home</a></li>
               <li><a asp-controller="App" asp-action="About">About</a></li>
               <li><a asp-controller="App" asp-action="Contact">Contact</a></li>
+              <li><a asp-controller="App" asp-action="Trips">Trips</a></li>
           </ul>
       </div>
       <div id="wrapper">
-          <nav class="navbar navbar-dark">
+          <nav class="navbar navbar-dark bg-primary">
               <div class="container-fluid">
-                  <ul class="nav navbar-nav">
+                  <ul class="navbar-nav d-flex" >
                       <li>
                           <button class="btn btn-primary" id="sidebarToggle">
                               <i class="fa fa-angle-left"></i>
                           </button>
                       </li>
                   </ul>
+                  <div class="my-2 my-lg-0">
+                    <a class="btn btn-primary my-2 my-sm-0" asp-controller="Auth" asp-action="Login">Login</a>
+                  </div>
               </div>
+              
           </nav>
           <main id="main" class="container-fluid">
               <div>
@@ -37,7 +42,7 @@
               </div>
               @RenderBody()
           </main>
-          <footer class="text-primary container-fluid">&copy; 2020 The World Ltd.</footer></p>
+          <footer class="container-fluid bg-primary">&copy; 2020 The World Ltd.</footer></p>
       </div>
       <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
       <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>

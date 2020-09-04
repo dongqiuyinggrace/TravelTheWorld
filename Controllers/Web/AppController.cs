@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
 using TheWorld.Models;
 using TheWorld.Services;
 using TheWorld.ViewModels;
+using Microsoft.Extensions.Logging;
 
 namespace TheWorld.Controllers.Web
 {
@@ -12,17 +14,37 @@ namespace TheWorld.Controllers.Web
         private IMailService _mailService;
         private IConfiguration _config;
         private readonly IWorldRepository _repo;
+        private readonly ILogger<AppController> _logger;
 
-        public AppController(IMailService mailService, IConfiguration config, IWorldRepository repo)
+        public AppController(IMailService mailService, 
+                            IConfiguration config, 
+                            IWorldRepository repo, 
+                            ILogger<AppController> logger)
         {
             _repo = repo;
+            _logger = logger;
             _mailService = mailService;
             _config = config;
         }
         public IActionResult Index()
         {
-            var trips = _repo.GetAllTrips();
-            return View(trips);
+            return View();
+        }
+
+        //[Authorize]
+        public IActionResult Trips()
+        {
+            try
+            {
+                var trips = _repo.GetAllTrips();
+                return View(trips);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError($"Error happened in trips: {ex.Message}");
+                return BadRequest("Fail to get trips");
+            }
+
         }
 
         public IActionResult About()
