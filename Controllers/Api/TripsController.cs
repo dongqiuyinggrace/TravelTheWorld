@@ -22,7 +22,7 @@ namespace TheWorld.Controllers.Api
             _repo = repo;
         }
 
-        //[Authorize]
+        [Authorize]
         public IActionResult Get()
         {
             try
