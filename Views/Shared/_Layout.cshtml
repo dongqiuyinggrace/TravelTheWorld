@@ -16,8 +16,13 @@
           <ul class="navbar-nav" >
               <li class="active"><a asp-controller="App" asp-action="Index">Home</a></li>
               <li><a asp-controller="App" asp-action="About">About</a></li>
-              <li><a asp-controller="App" asp-action="Contact">Contact</a></li>
-              <li><a asp-controller="App" asp-action="Trips">Trips</a></li>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li><a asp-controller="App" asp-action="Contact">Contact</a></li>
+                <li><a asp-controller="App" asp-action="Trips">Trips</a></li>
+            }
+              
           </ul>
       </div>
       <div id="wrapper">
@@ -31,7 +36,16 @@
                       </li>
                   </ul>
                   <div class="my-2 my-lg-0">
-                    <a class="btn btn-primary my-2 my-sm-0" asp-controller="Auth" asp-action="Login">Login</a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a class="btn btn-primary my-2 my-sm-0" asp-controller="Auth" asp-action="Logout">Logout</a>
+                    }
+                    else 
+                    {
+                        <a class="btn btn-primary my-2 my-sm-0" asp-controller="Auth" asp-action="Register">Register</a>
+                        <a class="btn btn-primary my-2 my-sm-0" asp-controller="Auth" asp-action="Login">Login</a>
+                    }
+                    
                   </div>
               </div>
               

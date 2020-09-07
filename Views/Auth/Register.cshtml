@@ -1,4 +1,4 @@
-@model TheWorld.ViewModels.LoginViewModel
+@model TheWorld.ViewModels.RegisterViewModel
 @{
     ViewData["Title"] = "Login";
 }
@@ -11,21 +11,26 @@
 <div class="row" >
     <div class="col-md-3"></div>
     <div class="col-md-6">
-        <h1>Login</h1>
+        <h1>Register</h1>
         <form method="post">
             <div asp-validation-summary="ModelOnly"></div>
             <div class="form-group">
                 <label asp-for="UserName"></label>
-                <input asp-for="UserName" class="form-control" type="text"/>
+                <input asp-for="UserName" class="form-control" />
                 <span asp-validation-for="UserName" class="text-muted"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-muted"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Password"></label>
-                <input asp-for="Password" class="form-control" type="password" />
+                <input asp-for="Password" type="password" class="form-control" />
                 <span asp-validation-for="Password" class="text-muted"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Login" class="btn btn-success" />
+                <input type="submit" value="Register" class="btn btn-success" />
             </div>
         </form>
     </div>

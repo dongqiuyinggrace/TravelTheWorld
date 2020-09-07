@@ -24,6 +24,16 @@ namespace TheWorld.Models
             
         }
 
+        public void AddStop(int id, Stop stop)
+        {
+            var trip = GetTripById(id);
+            if (trip != null)
+            {
+                trip.Stops.Add(stop);
+                _context.Stops.Add(stop);
+            }
+        }
+
         public void AddTrip(Trip trip)
         {
             _context.Trips.Add(trip);
@@ -33,6 +43,12 @@ namespace TheWorld.Models
         {
             var trips = _context.Trips.ToList();
             return trips;
+        }
+
+        public Trip GetTripById(int id)
+        {
+            var trip = _context.Trips.Include(t => t.Stops).FirstOrDefault(t => t.Id == id);
+            return trip;
         }
 
         public Trip GetTripByName(string name)

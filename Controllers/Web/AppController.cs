@@ -6,6 +6,8 @@ using TheWorld.Models;
 using TheWorld.Services;
 using TheWorld.ViewModels;
 using Microsoft.Extensions.Logging;
+using AutoMapper;
+using System.Threading.Tasks;
 
 namespace TheWorld.Controllers.Web
 {
@@ -15,14 +17,17 @@ namespace TheWorld.Controllers.Web
         private IConfiguration _config;
         private readonly IWorldRepository _repo;
         private readonly ILogger<AppController> _logger;
+        private readonly IMapper _mapper;
 
         public AppController(IMailService mailService, 
                             IConfiguration config, 
                             IWorldRepository repo, 
-                            ILogger<AppController> logger)
+                            ILogger<AppController> logger,
+                            IMapper mapper)
         {
             _repo = repo;
             _logger = logger;
+            _mapper = mapper;
             _mailService = mailService;
             _config = config;
         }
@@ -32,6 +37,7 @@ namespace TheWorld.Controllers.Web
         }
 
         [Authorize]
+        [HttpGet(Name="GetTrips")]
         public IActionResult Trips()
         {
             try
@@ -46,6 +52,44 @@ namespace TheWorld.Controllers.Web
             }
 
         }
+
+        [HttpGet("/App/trips/{id}/stops")]
+        public IActionResult Stops(int id)
+        {
+            try
+            {
+                var trip = _repo.GetTripById(id);
+                return View(trip.Stops);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError($"Error happened in trips: {ex.Message}");
+                return BadRequest("Fail to get trips");
+            }
+
+        }
+
+        [HttpPost("/App/trips/{id}/stops")]
+        public async Task<IActionResult> Stops(int id, StopViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                var newStop = _mapper.Map<Stop>(vm);
+                _repo.AddStop(id, newStop);
+
+                if (await _repo.SaveChangesAsync())
+                {
+                    return Created($"app/trips/{id}/stops/{newStop.Id}", _mapper.Map<TripViewModel>(newStop));
+                }
+                else
+                {
+                    return BadRequest("Fail to save the stop");
+                }
+
+            }
+            return View();
+        }
+
 
         public IActionResult About()
         {

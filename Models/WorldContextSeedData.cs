@@ -9,22 +9,24 @@ namespace TheWorld.Models
     public class WorldContextSeedData
     {
         private readonly WorldContext _context;
-        public WorldContextSeedData(WorldContext context)
+        private readonly UserManager<WorldUser> _userManager;
+        public WorldContextSeedData(WorldContext context, UserManager<WorldUser> userManager)
         {
+            _userManager = userManager;
             _context = context;
         }
 
         public async Task SeedData()
         {
-            // if (await _userManager.FindByEmailAsync("gracedong@test.com") == null)
-            // {
-            //     var user = new WorldUser()
-            //     {
-            //         UserName = "gracedong",
-            //         Email = "gracedong@test.com"
-            //     };
-            //     await _userManager.CreateAsync(user, "@password2D");
-            // }
+            if (await _userManager.FindByEmailAsync("gracedong@test.com") == null)
+            {
+                var user = new WorldUser()
+                {
+                    UserName = "gracedong",
+                    Email = "gracedong@test.com"
+                };
+                await _userManager.CreateAsync(user, "@password2D");
+            }
             if (!_context.Trips.Any())
             {
                 var usTrip = new Trip()

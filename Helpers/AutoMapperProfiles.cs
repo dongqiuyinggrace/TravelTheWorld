@@ -10,6 +10,7 @@ namespace TheWorld.Helpers
         {
             CreateMap<TripViewModel, Trip>().ReverseMap();
             CreateMap<StopViewModel, Stop>().ReverseMap();
+            CreateMap<RegisterViewModel, WorldUser>().ReverseMap();
         }
     }
 }
